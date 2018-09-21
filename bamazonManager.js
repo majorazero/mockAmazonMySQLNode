@@ -28,6 +28,7 @@ function mainMenu(){
         break;
       case "View Low Inventory":
         console.log("Ok let's view some products we're running out of!");
+        viewLowInv();
         break;
       case "Add to Inventory":
         console.log("Oh! Let me grab the company credit card!");
@@ -40,6 +41,16 @@ function mainMenu(){
 
 function listItems(){
   connection.query("SELECT * FROM products",function(err,res){
+    for(let i = 0; i < res.length; i++){
+      console.log(">>>>>>>>>>>>>>");
+      console.log("Item: "+res[i].product_name+"\nPrice: $"+res[i].price+
+                "\nStoreID: "+res[i].item_id+"\nQuantity: "+res[i].stock_quantity);
+    }
+    mainMenu();
+  });
+}
+function viewLowInv(){
+  connection.query("SELECT * FROM products WHERE stock_quantity < ?",[5],function(err,res){
     for(let i = 0; i < res.length; i++){
       console.log(">>>>>>>>>>>>>>");
       console.log("Item: "+res[i].product_name+"\nPrice: $"+res[i].price+
