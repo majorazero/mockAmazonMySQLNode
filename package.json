@@ -1,0 +1,24 @@
+{
+  "name": "mockAmazonMySQLNode",
+  "version": "1.0.0",
+  "description": "Working with mySQL and Node.js to make a mock Amazon store front.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/majorazero/mockAmazonMySQLNode.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/majorazero/mockAmazonMySQLNode/issues"
+  },
+  "homepage": "https://github.com/majorazero/mockAmazonMySQLNode#readme",
+  "dependencies": {
+    "inquirer": "^6.2.0",
+    "mysql": "^2.16.0"
+  }
+}
