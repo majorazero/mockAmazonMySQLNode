@@ -29,7 +29,7 @@ function displayData(){
       console.log("These are following items we have in stock...");
       for(let i = 0; i < res.length; i++){
         console.log(">>>>>>>>>>>>>>");
-        console.log("Item:"+res[i].product_name+"\nPrice: $"+res[i].price+
+        console.log("Item: "+res[i].product_name+"\nPrice: $"+res[i].price+
                   "\nStoreID: "+res[i].item_id);
       }
       //inquirer purchase prompt begins
