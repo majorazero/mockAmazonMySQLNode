@@ -35,6 +35,7 @@ function mainMenu(){
         addInven();
         break;
       default:
+        addNewProd();
         console.log("Ohh, exciting!");
     }
   });
@@ -85,6 +86,43 @@ function addInven(){
             console.log("Added!");
             mainMenu();
           });
+        });
+      });
+    });
+  });
+}
+
+function addNewProd(){
+  inquirer.prompt({
+    message: "What is the item name of what you want to add?",
+    type: "input",
+    name: "name"
+  }).then(function(name){
+    //sets department
+    inquirer.prompt({
+      message: "What department does this belong to?",
+      type: "input",
+      name: "department"
+    }).then(function(dept){
+      //add price
+      inquirer.prompt({
+        message:"What price you want to set this at?",
+        type: "input",
+        name: "price"
+      }).then(function(price){
+        connection.query("INSERT INTO products SET ?",{
+          product_name: name.name,
+          department_name: dept.department,
+          price: price.price,
+          stock_quantity: 0
+        },function(err,resp){
+          if(err){
+            console.log(err);
+          }
+          else {
+            console.log("Product Added!");
+          }
+          mainMenu();
         });
       });
     });
