@@ -7,7 +7,8 @@ CREATE TABLE products (
     product_name VARCHAR(50) NOT NULL,
     department_name VARCHAR(50) NOT NULL,
     price DECIMAL(10,2),
-    stock_quantity INT NOT NULL
+    stock_quantity INT NOT NULL,
+    product_sales DEC(10,2) DEFAULT 0
 );
 
 INSERT INTO products(product_name,department_name,price,stock_quantity)
@@ -18,6 +19,6 @@ VALUES ("Can of Beans","Food",0.50,2000),
 ("Tooth Fairy","Food",14.50,3000),
 ("T-1000","Electronics",205.05,100),
 ("Hal","Electronics",1000.50,5),
-("The Box from Se7en","Home $ Kitchen",100.50,1),
+("The Box from Se7en","Home & Kitchen",100.50,1),
 ("Necronomicon","Books & Audibles",7.77,42),
 ("Sentient Chew Toy","Pet Supplies",0.50,200000);

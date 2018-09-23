@@ -81,11 +81,6 @@ function addInven(){
         type: "input",
         name: "amount"
       }).then(function(qtyAmt){
-        if(typeof qtyAmt.amount !== "number"){
-          console.log(chalk.hex("#ba1800")("Gotta put in a number there bud, why did we hire you again?"));
-          mainMenu();
-          return;
-        }
         console.log("Adding!");
         connection.query("SELECT stock_quantity FROM products WHERE item_id = ?",[productId],function(err,respso){
           connection.query("UPDATE products SET stock_quantity = ? WHERE item_id = ?",[parseInt(qtyAmt.amount)+parseInt(respso[0].stock_quantity),productId],function(err,respo){
@@ -124,11 +119,6 @@ function addNewProd(){
           type: "input",
           name: "price"
         }).then(function(price){
-          if(typeof price.price !== "number"){
-            console.log(chalk.hex("#ba1800")("Gotta put in a number there bud, why did we hire you again?"));
-            mainMenu();
-            return;
-          }
           connection.query("INSERT INTO products SET ?",{
             product_name: name.name,
             department_name: dept.department,

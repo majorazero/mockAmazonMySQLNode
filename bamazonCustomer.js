@@ -1,5 +1,5 @@
-let mysql = require("mysql");
-let inquirer = require("inquirer");
+const mysql = require("mysql");
+const inquirer = require("inquirer");
 
 let connection = mysql.createConnection({
   host: "localhost",
@@ -52,7 +52,7 @@ function purchaseInq(){
       name: "input"
     }).then(function(stock){
       //we'll check the database
-      connection.query("SELECT stock_quantity, price FROM products WHERE item_id = ?",[product.input],function(err,res){
+      connection.query("SELECT stock_quantity, price, product_sales FROM products WHERE item_id = ?",[product.input],function(err,res){
         if(err){
           console.log(err);
         }
@@ -62,11 +62,13 @@ function purchaseInq(){
           }
           else {
             console.log("Fulfilling!");
-            connection.query("UPDATE products SET stock_quantity = ? WHERE item_id = ?",
-          [res[0].stock_quantity-stock.input,product.input],function(err,upRes){
+            connection.query("UPDATE products SET ? WHERE item_id = ?",
+          [{stock_quantity: res[0].stock_quantity-stock.input,
+            product_sales: res[0].product_sales+stock.input*res[0].price},product.input],function(err,upRes){
             console.log("Fulfilled! You spent $"+stock.input*res[0].price);
           });
           }
+          displayData();
         }
       })
     });
