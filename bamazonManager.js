@@ -80,6 +80,11 @@ function addInven(){
         type: "input",
         name: "amount"
       }).then(function(qtyAmt){
+        if(typeof qtyAmt.amount !== "number"){
+          console.log("Gotta put in a number there bud, why did we hire you again?");
+          mainMenu();
+          return;
+        }
         console.log("Adding!");
         connection.query("SELECT stock_quantity FROM products WHERE item_id = ?",[productId],function(err,respso){
           connection.query("UPDATE products SET stock_quantity = ? WHERE item_id = ?",[parseInt(qtyAmt.amount)+parseInt(respso[0].stock_quantity),productId],function(err,respo){
@@ -93,36 +98,50 @@ function addInven(){
 }
 
 function addNewProd(){
-  inquirer.prompt({
-    message: "What is the item name of what you want to add?",
-    type: "input",
-    name: "name"
-  }).then(function(name){
-    //sets department
+  connection.query("SELECT * FROM products",function(err,response){
     inquirer.prompt({
-      message: "What department does this belong to?",
+      message: "What is the item name of what you want to add?",
       type: "input",
-      name: "department"
-    }).then(function(dept){
-      //add price
-      inquirer.prompt({
-        message:"What price you want to set this at?",
-        type: "input",
-        name: "price"
-      }).then(function(price){
-        connection.query("INSERT INTO products SET ?",{
-          product_name: name.name,
-          department_name: dept.department,
-          price: price.price,
-          stock_quantity: 0
-        },function(err,resp){
-          if(err){
-            console.log(err);
-          }
-          else {
-            console.log("Product Added!");
-          }
+      name: "name"
+    }).then(function(name){
+      for(let i = 0; i < response.length; i++){
+        if(name.name === response[i].product_name){
+          console.log("This item already exists!");
           mainMenu();
+          return;
+        }
+      }
+      //sets department
+      inquirer.prompt({
+        message: "What department does this belong to?",
+        type: "input",
+        name: "department"
+      }).then(function(dept){
+        //add price
+        inquirer.prompt({
+          message:"What price you want to set this at?",
+          type: "input",
+          name: "price"
+        }).then(function(price){
+          if(typeof price.price !== "number"){
+            console.log("Gotta put in a number there bud, why did we hire you again?");
+            mainMenu();
+            return;
+          }
+          connection.query("INSERT INTO products SET ?",{
+            product_name: name.name,
+            department_name: dept.department,
+            price: price.price,
+            stock_quantity: 0
+          },function(err,resp){
+            if(err){
+              console.log(err);
+            }
+            else {
+              console.log("Product Added!");
+            }
+            mainMenu();
+          });
         });
       });
     });
