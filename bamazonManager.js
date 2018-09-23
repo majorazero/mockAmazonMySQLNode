@@ -1,5 +1,6 @@
-let mysql = require("mysql");
-let inquirer = require("inquirer");
+const mysql = require("mysql");
+const inquirer = require("inquirer");
+const chalk = require("chalk");
 
 let connection = mysql.createConnection({
   host: "localhost",
@@ -44,7 +45,7 @@ function mainMenu(){
 function listItems(){
   connection.query("SELECT * FROM products",function(err,res){
     for(let i = 0; i < res.length; i++){
-      console.log(">>>>>>>>>>>>>>");
+      console.log(chalk.hex("#d895d8")(">>>>>>>>>>>>>>"));
       console.log("Item: "+res[i].product_name+"\nPrice: $"+res[i].price+
                 "\nStoreID: "+res[i].item_id+"\nQuantity: "+res[i].stock_quantity);
     }
@@ -54,7 +55,7 @@ function listItems(){
 function viewLowInv(){
   connection.query("SELECT * FROM products WHERE stock_quantity < ?",[5],function(err,res){
     for(let i = 0; i < res.length; i++){
-      console.log(">>>>>>>>>>>>>>");
+      console.log(chalk.hex("#d895d8")(">>>>>>>>>>>>>>"));
       console.log("Item: "+res[i].product_name+"\nPrice: $"+res[i].price+
                 "\nStoreID: "+res[i].item_id+"\nQuantity: "+res[i].stock_quantity);
     }
@@ -81,14 +82,14 @@ function addInven(){
         name: "amount"
       }).then(function(qtyAmt){
         if(typeof qtyAmt.amount !== "number"){
-          console.log("Gotta put in a number there bud, why did we hire you again?");
+          console.log(chalk.hex("#ba1800")("Gotta put in a number there bud, why did we hire you again?"));
           mainMenu();
           return;
         }
         console.log("Adding!");
         connection.query("SELECT stock_quantity FROM products WHERE item_id = ?",[productId],function(err,respso){
           connection.query("UPDATE products SET stock_quantity = ? WHERE item_id = ?",[parseInt(qtyAmt.amount)+parseInt(respso[0].stock_quantity),productId],function(err,respo){
-            console.log("Added!");
+            console.log(chalk.hex("#67d37f")("Added!"));
             mainMenu();
           });
         });
@@ -106,7 +107,7 @@ function addNewProd(){
     }).then(function(name){
       for(let i = 0; i < response.length; i++){
         if(name.name === response[i].product_name){
-          console.log("This item already exists!");
+          console.log(chalk.hex("ba1800")("This item already exists!"));
           mainMenu();
           return;
         }
@@ -124,7 +125,7 @@ function addNewProd(){
           name: "price"
         }).then(function(price){
           if(typeof price.price !== "number"){
-            console.log("Gotta put in a number there bud, why did we hire you again?");
+            console.log(chalk.hex("#ba1800")("Gotta put in a number there bud, why did we hire you again?"));
             mainMenu();
             return;
           }
@@ -138,7 +139,7 @@ function addNewProd(){
               console.log(err);
             }
             else {
-              console.log("Product Added!");
+              console.log(chalk.hex("#67d37f")("Product Added!"));
             }
             mainMenu();
           });
