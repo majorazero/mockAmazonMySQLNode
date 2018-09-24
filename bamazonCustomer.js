@@ -1,5 +1,6 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
+const chalk = require("chalk");
 
 let connection = mysql.createConnection({
   host: "localhost",
@@ -12,11 +13,7 @@ let connection = mysql.createConnection({
   database: "bamazon"
 });
 
-connection.connect(function(error){
-  if(error) throw error;
-  console.log("connected as id " + connection.threadId + "\n");
-  displayData();
-});
+displayData();
 /**
 * This will display all the initial data.
 */
@@ -28,7 +25,7 @@ function displayData(){
     else{
       console.log("These are following items we have in stock...");
       for(let i = 0; i < res.length; i++){
-        console.log(">>>>>>>>>>>>>>");
+        console.log(chalk.hex("#719dba")(">>>>>>>>>>>>>>"));
         console.log("Item: "+res[i].product_name+"\nPrice: $"+res[i].price+
                   "\nStoreID: "+res[i].item_id);
       }
@@ -68,7 +65,20 @@ function purchaseInq(){
             console.log("Fulfilled! You spent $"+stock.input*res[0].price);
           });
           }
-          displayData();
+          inquirer.prompt({
+            message: "Keep shopping?",
+            type: "confirm",
+            name: "confirm"
+          }).then(function(confirm){
+            if(confirm.confirm === true){
+              displayData();
+            }
+            else {
+              console.log("See you next time!");
+              connection.end();
+            }
+          })
+
         }
       })
     });

@@ -138,3 +138,5 @@ function addNewProd(){
     });
   });
 }
+
+module.exports = mainMenu;

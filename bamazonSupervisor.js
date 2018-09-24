@@ -14,12 +14,11 @@ let connection = mysql.createConnection({
   database: "bamazon"
 });
 
-connection.connect(function(error){
-  if(error) throw error;
-  console.log("connected as id " + connection.threadId + "\n");
-  mainMenu();
-});
+mainMenu();
 
+/**
+* Handles the main menu section of the supervisor
+*/
 function mainMenu(){
   inquirer.prompt({
     type: "list",
@@ -38,7 +37,9 @@ function mainMenu(){
     }
   });
 }
-
+/**
+* Handles the code that generates the department performance table
+*/
 function departmentPerform(){
   connection.query("SELECT * FROM products RIGHT JOIN departments ON departments.department_name = products.department_name ORDER BY departments.department_id",function(err,res){
     let table = new Table({
@@ -87,7 +88,9 @@ function departmentPerform(){
   mainMenu();
   });
 }
-
+/**
+* Handles the add department event
+*/
 function addDepartment(){
   inquirer.prompt({
     message: "What's the name of the new department?",
@@ -117,3 +120,5 @@ function addDepartment(){
     });
   });
 }
+
+module.exports = mainMenu;
