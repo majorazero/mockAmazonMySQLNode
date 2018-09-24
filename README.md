@@ -17,6 +17,7 @@ We're essentially simulating an e-Commerce store through 3 perspectives, the cus
 - Node.js
 - SQL
 - [Inquirer](https://github.com/SBoudrias/Inquirer.js/)
+- [mysql](https://www.npmjs.com/package/mysql)
 - [CLI-Table](https://www.npmjs.com/package/cli-table)
 - [Chalk](https://www.npmjs.com/package/chalk)
 
