@@ -9,11 +9,11 @@ We're essentially simulating an e-Commerce store through 3 perspectives, the cus
 
 # Watch the App in Action
 ![bamazonCustomer.js](images/bamazonC.gif)
-Fig 1. bamazonCustomer.js
+\nFig 1. bamazonCustomer.js
 ![bamazonManager.js](images/bamazonC.gif)
-Fig 2. bamazonManager.js
+\nFig 2. bamazonManager.js
 ![bamazonSupervisor.js](images/bamazonS.gif)
-Fig 3. bamazonSupervisor.js
+\nFig 3. bamazonSupervisor.js
 
 # Built With
 - JavaScript
