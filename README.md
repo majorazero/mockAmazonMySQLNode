@@ -8,8 +8,12 @@ After you load it and run `npm install` you'll want to use the bamazon.sql and t
 We're essentially simulating an e-Commerce store through 3 perspectives, the customer, the manager, and the supervisor. Their respective .js files have unique menus that interact with the products database in different ways. Each of their changes affect one another since they all use the same database.
 
 # Watch the App in Action
-
 ![bamazonCustomer.js](images/bamazonC.gif)
+Fig 1. bamazonCustomer.js
+![bamazonManager.js](images/bamazonC.gif)
+Fig 2. bamazonManager.js
+![bamazonSupervisor.js](images/bamazonS.gif)
+Fig 3. bamazonSupervisor.js
 
 # Built With
 - JavaScript
